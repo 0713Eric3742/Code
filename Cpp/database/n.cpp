@@ -1,49 +1,44 @@
 #include<bits/stdc++.h>
 using namespace std;
-int dp[300000][60],b[300000],c[300000];
+int f(int n)
+{
+    long long fib[200005];
+    fib[1] = 1;
+    fib[2] = 1;
+    for(int i=3 ; i<=n ; i=i+1 ) fib[i] = (fib[i-1] + fib[i-2])%998244353;
+	return fib[n];
+}
+int power(int x, int y, int p) 
+{
+	int res = 1;
+	x = x % p;
+	while (y > 0) 
+	{ 
+		if (y & 1) res = (res*x) % p; 
+		y = y>>1;
+		x = (x*x) % p; 
+	} 
+	return res;
+}
+long long calculate(long long p,long long q) 
+{ 
+    long long mod = 998244353, expo; 
+    expo = mod - 2; 
+    while (expo)
+	{ 
+        if (expo & 1)
+		{ 
+            p = (p * q) % mod; 
+        } 
+        q = (q * q) % mod; 
+        expo >>= 1; 
+    } 
+    return p; 
+} 
 int main()
 {
-	int a,range;
+	int a;
 	cin>>a;
-	for (int i = 1; i <= a; i++)
-	{
-		cin>>b[i];
-	}
-	for (int i = 1; i <= a; i++)
-	{
-		cin>>c[i];
-	}
-	for (int i = 0; i <= 59; i++)
-	{
-		if(i==0)
-		{
-			for (int j = 1; j <= a; j++)
-			{
-				dp[c[j]][i]=b[j];
-				//cout<<b[j]<<' '<<c[j]<<endl;
-			}
-		}
-		else
-		{
-			for (int j = 1; j <= a; j++)
-			{
-				dp[c[j]][i]=dp[dp[c[j]][i-1]][i-1];
-			}
-		}
-	}
-	for (int j = 1; j <= a; j++)
-	{
-		cout<<dp[j][0]<<' ';
-	}
-	cout<<endl;
-	for (int j = 1; j <= a; j++)
-	{
-		cout<<dp[j][1]<<' ';
-	}
-	cout<<endl;
-	for (int j = 1; j <= a; j++)
-	{
-		cout<<dp[j][2]<<' ';
-	}
-	cout<<endl;
+	cout<<(f(a)*calculate(1,power(2,a,998244353)))%998244353;
+	return 0;
 }

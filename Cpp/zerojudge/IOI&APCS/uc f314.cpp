@@ -1,60 +1,40 @@
 #include<bits/stdc++.h>
 using namespace std;
+long long int c[51][10001],dp[51][10001],d[51],ans=-2147483648;
 int main(int argc, char const *argv[])
 {
-    int a,b,c[51][10001],d[51],f[51],t,ans=-99999999;
-
-    cin>>a>>b;
-    for (int i = 1; i <= a; i++)
-    {
-        for (int j = 1; j <= b; j++)
-        {
-            cin>>c[i][j];
-        }
-        d[i]=-99999999;
-    }
-    for (int i = 1; i <= a; i++)
-    {
-        for (int j = 0; j <= b; j++)
-        {
-            if(j==0) f[j]=0;
-            else f[j]=c[i][j]+f[j-1];
-            //cout<<f[j]<<' ';
-        }
-        //cout<<endl;
-        if(i==1)
-        {
-            for (int j = 1; j <= b; j++)
-            {
-                for (int k = 1; k <= b; k++)
-                {
-                    if(j<=k) t=f[k]-f[j-1];
-                    else t=f[j]-f[k-1];
-                    d[i]=max(d[i],t);
-                }
-                //cout<<d[i][j]<<' ';
-            }
-            //cout<<endl;
-        }
-        else
-        {
-            for (int j = 1; j <= b; j++)
-            {
-                for (int k = 1; k <= b; k++)
-                {
-                    if(j<=k) t=f[k]-f[j-1];
-                    else t=f[j]-f[k-1];
-                    d[i]=max(d[i],t+d[i-1]);
-                }
-                //cout<<d[i][j]<<' ';
-            }
-            //cout<<endl;
-        }
-    }
-    for (int i = 0; i < b; i++)
-    {
-        ans=max(d[i],ans);
-    }
-    cout<<ans<<endl;
-    return 0;
+	cin.tie(0);
+	ios::sync_with_stdio(false);
+	int a,b;
+	cin>>a>>b;
+	for (int i = 1; i <= a; i++)
+	{
+		for (int j = 1; j <= b; j++)
+		{
+			cin>>c[i][j];
+		}
+	}
+	for (int i = 1; i <= a; i++)
+	{
+		for (int j = 1; j <= b; j++)
+		{
+			d[j]=d[j-1]+c[i][j];
+		}
+		for (int j = 1; j <= b; j++)
+		{
+			dp[i][j]=-100000000000;
+			for (int k = 1; k <= b; k++)
+			{
+				if(j > k) dp[i][j]=max(dp[i][j],d[j]-d[k-1]+dp[i-1][k]);
+				if(j < k) dp[i][j]=max(dp[i][j],d[k]-d[j-1]+dp[i-1][k]);
+				if(j == k) dp[i][j]=max(dp[i][j],c[i][j]+dp[i-1][k]);
+			}
+		}
+	}
+	for (int j = 1; j <= b; j++)
+	{
+		ans=max(dp[a][j],ans);
+	}
+	cout<<ans<<'\n';
+	return 0;
 }

@@ -1,28 +1,34 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
-int c[100005]={};
 int main()
 {
-	ios::sync_with_stdio(false);
-	cin.tie(0);
-	int a,b,d,e;
-	vector<int> ans;
-	cin>>a;
+	int a, b, t, f;
+	map<int, int> c;
+	cin >> a;
 	for (int i = 0; i < a; i++)
 	{
-		cin>>c[i];
-	}
-	cin>>b;
-	for (int i = 0; i < b; i++)
-	{
-		cin>>d>>e;
-		ans.clear();
-		for (int j = d; j <= e; j++)
+		cin >> b;
+		c.clear();
+		f = 0;
+		for (int i = 0; i < b; i++)
 		{
-			if(j%2==0)
-			if(j%2==0)
-		
+			cin >> t;
+			auto it = c.find(t);
+			if (it == c.end())
+				c.emplace(t, i + 1);
+			else
+				it->second = -1;
+		}
+		for (auto i = c.begin(); i != c.end(); i++)
+		{
+			if (i->second != -1)
+			{
+				cout << i->second << endl;
+				f = 1;
+				break;
+			}
+		}
+		if (f == 0) cout << -1 << endl;
 	}
-	
 	return 0;
 }

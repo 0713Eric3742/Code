@@ -2,23 +2,25 @@
 using namespace std;
 int main()
 {
-	long long int a,b[200005],c[200005],ans=0;
+	int a,b[10005],c,d,t;
 	cin>>a;
 	for (int i = 0; i < a; i++)
 	{
 		cin>>b[i];
 	}
-	sort(b,b+a);
-	reverse(b,b+a);
+	cin>>c>>d;
+	for (int i = 0; i < d; i++)
+	{
+		cin>>t;
+		for (int i = 0; i < a; i++)
+		{
+			if(b[i]==t) b[i]=c;
+		}
+		c=t;
+	}
 	for (int i = 0; i < a; i++)
 	{
-		if(i==0) c[i]=b[i];
-		else c[i]=c[i-1]+b[i];
+		cout<<b[i]<<' ';
 	}
-	for (int i = 1; i < a; i++)
-	{
-		ans+=c[i-1]-b[i]*i;
-	}
-	cout<<ans<<endl;
-	return 0;
+	cout<<endl;
 }

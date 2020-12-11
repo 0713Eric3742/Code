@@ -20,7 +20,7 @@ int main()
 	}
 	for (auto i = ans.begin(); i != ans.end(); i++)
 	{
-		
+
 		if (t > 0)
 		{
 			s = true;

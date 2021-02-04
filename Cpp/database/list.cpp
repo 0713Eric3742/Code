@@ -13,7 +13,7 @@ int main()
     cin>>a;
     for (int i = 0; i < a; i++)
     {
-        t=(struct node*)malloc(sizeof(struct node));
+        t=new node;
         cin>>t->data;
         t->next=NULL;
         if(start==NULL) start=t;

@@ -1,22 +1,19 @@
 #include <bits/stdc++.h>
 using namespace std;
-vector<int> edges[40005];
 int main(int argc, char const *argv[])
 {
 	//ios_base::sync_with_stdio(false);
 	//cin.tie(NULL);
-	int n, m;
-	while (cin >> n >> m)
+	long long int a, ans, t;
+	while (cin >> a)
 	{
-		for (int i = 0; i < n; i++)
+		ans = a * (a + 1) / 2;
+		for (int i = 1; i < a; i++)
 		{
-			edges[i].clear();
+			cin >> t;
+			ans -= t;
 		}
-		for (int i = 0; i < m; i++)
-		{
-			/* code */
-		}
-		
+		cout << ans << endl;
 	}
 	return 0;
 }

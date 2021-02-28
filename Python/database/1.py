@@ -1,13 +1,11 @@
-import numpy as np
-import matplotlib.pyplot as plt
-x = range(0, 10)
-x_min = -10.0
-x_max = 10.0
-x = np.arange(x_min, x_max, .01)
-y = np.exp(x)
-plt.plot(x, y)
-plt.xlim(x_min, x_max)
-plt.ylim(-10, 10)
-plt.grid(True, which="both", linestyle='--')
-plt.show()
-plt.close()
+import random
+l = ["前面", "後面"]
+a = 0
+b = 0
+for i in range(1000000000):
+    ans = int(random.randint(0, 1))
+    if ans == 0:
+        a += 1
+    else:
+        b += 1
+print(a,b)

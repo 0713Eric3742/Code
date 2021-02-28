@@ -1,22 +1,88 @@
+//#pragma GCC optimize(3, "Ofast", "inline")
 #include <bits/stdc++.h>
+#define int long long
 using namespace std;
-vector<int> edges[40005];
-int main(int argc, char const *argv[])
+int query(int l, int r)
 {
-	//ios_base::sync_with_stdio(false);
-	//cin.tie(NULL);
-	int n, m;
-	while (cin >> n >> m)
+	int t;
+	cout << "? " << l << " " << r << endl;
+	cin >> t;
+	return t;
+}
+void solve_subtask()
+{
+	int a, l, r, f;
+	cin >> a;
+	l = 1, r = a;
+	f = query(l, r);
+	while (l != r)
 	{
-		for (int i = 0; i < n; i++)
+		int mid = (l + r) / 2;
+		int t;
+		if (l + 2 >= r)
 		{
-			edges[i].clear();
+			t = query(l, r);
+			f = t;
+			t = query(l, l+1);
+			if (f == t)
+			{
+				if (t == l)
+				{
+					cout << "! " << l + 1 << endl;
+				}
+				else
+				{
+					cout << "! " << l << endl;
+				}
+			}
+			else
+			{
+				t = query(l + 1, l + 2);
+				if (t == l+1)
+				{
+					cout << "! " << l+2 << endl;
+				}
+				else
+				{
+					cout << "! " << l+1 << endl;
+				}
+			}
+			return;
 		}
-		for (int i = 0; i < m; i++)
+		if (l <= f && f <= mid)
 		{
-			/* code */
+			t = query(l, mid);
+			if (t == f)
+			{
+				r = mid;
+			}
+			else
+			{
+				l = mid + 1;
+			}
 		}
-		
+		else
+		{
+			t = query(mid + 1, r);
+			if (t == f)
+			{
+				l = mid + 1;
+			}
+			else
+			{
+				r = mid;
+			}
+		}
+		f = t;
+	}
+}
+main()
+{
+	int cnt = 1;
+	//cin >> cnt;
+	while (cnt--)
+	{
+		solve_subtask();
 	}
 	return 0;
 }

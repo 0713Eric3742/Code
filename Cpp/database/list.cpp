@@ -1,4 +1,4 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
 struct node
 {
@@ -7,25 +7,27 @@ struct node
 };
 int main()
 {
-    struct node *start,*t,*l;
-    start=NULL;
+    node *start, *t, *l;
+    start = NULL;
     int a;
-    cin>>a;
+    cin >> a;
     for (int i = 0; i < a; i++)
     {
-        t=new node;
-        cin>>t->data;
-        t->next=NULL;
-        if(start==NULL) start=t;
-        else l->next=t;
-        l=t;
+        t = new node;
+        cin >> t->data;
+        t->next = NULL;
+        if (start == NULL)
+            start = t;
+        else
+            l->next = t;
+        l = t;
     }
-    t=start;
-    while (t!=NULL)
+    t = start;
+    while (t != NULL)
     {
-        cout<<t->data<<' ';
-        l=t;
-        t=t->next;
+        cout << t->data << ' ';
+        l = t;
+        t = t->next;
         free(l);
     }
 }

@@ -1,88 +1,38 @@
-//#pragma GCC optimize(3, "Ofast", "inline")
 #include <bits/stdc++.h>
-#define int long long
 using namespace std;
-int query(int l, int r)
+//#define endl '\n'
+//#define int long long
+void solve(int cnt)
 {
-	int t;
-	cout << "? " << l << " " << r << endl;
-	cin >> t;
-	return t;
-}
-void solve_subtask()
-{
-	int a, l, r, f;
+	int a, ans = 0;
+	int num[10005];
 	cin >> a;
-	l = 1, r = a;
-	f = query(l, r);
-	while (l != r)
+	for (int i = 1; i <= a; i++)
 	{
-		int mid = (l + r) / 2;
-		int t;
-		if (l + 2 >= r)
-		{
-			t = query(l, r);
-			f = t;
-			t = query(l, l+1);
-			if (f == t)
-			{
-				if (t == l)
-				{
-					cout << "! " << l + 1 << endl;
-				}
-				else
-				{
-					cout << "! " << l << endl;
-				}
-			}
-			else
-			{
-				t = query(l + 1, l + 2);
-				if (t == l+1)
-				{
-					cout << "! " << l+2 << endl;
-				}
-				else
-				{
-					cout << "! " << l+1 << endl;
-				}
-			}
-			return;
-		}
-		if (l <= f && f <= mid)
-		{
-			t = query(l, mid);
-			if (t == f)
-			{
-				r = mid;
-			}
-			else
-			{
-				l = mid + 1;
-			}
-		}
-		else
-		{
-			t = query(mid + 1, r);
-			if (t == f)
-			{
-				l = mid + 1;
-			}
-			else
-			{
-				r = mid;
-			}
-		}
-		f = t;
+		cin >> num[i];
 	}
-}
-main()
-{
-	int cnt = 1;
-	//cin >> cnt;
-	while (cnt--)
+	for (int i = 1; i < a; i++)
 	{
-		solve_subtask();
+		for (int j = i; j <= a; j++)
+		{
+			if (num[j] == i)
+			{
+				ans += j - i + 1;
+				reverse(&num[i], &num[j + 1]);
+			}
+		}
+	}
+	cout << "Case #" << cnt << ": " << ans << endl;
+}
+int main()
+{
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	int cnt;
+	cin >> cnt;
+	for (int i = 1; i <= cnt; i++)
+	{
+		solve(i);
 	}
 	return 0;
 }

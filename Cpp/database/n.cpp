@@ -1,62 +1,75 @@
+//codeforces template
+#define MANY_SUBTASK
+//#pragma GCC optimize(3, "inline")
 #include <bits/stdc++.h>
+#define endl '\n'
+#define int long long
 using namespace std;
-//#define endl '\n'
-//#define int long long
-void solve(int cnt)
+//start here
+void solve_subtask()
 {
-	int a, b, ans = 0, rl, rh;
-	int num[10005], sol[10005];
-	cin >> a >> b;
-	rl = a - 1;
-	rh = a * (a + 1) / 2 - 1;
-	if (!(rl <= b && b <= rh))
+	int n, k, num[35] = {}, p = 1, t;
+	long double a = 0;
+	vector<int> ans;
+	ans.clear();
+	ans.push_back(0);
+	ans.push_back(0);
+	cin >> n >> k;
+	for (int i = 0; i < n; i++)
 	{
-		cout << "Case #" << cnt << ": ";
-		cout << "IMPOSSIBLE";
-		cout << endl;
-		return;
+		cin >> num[i];
 	}
-	for (int i = 1; i <= a; i++)
+	sort(num, num + n);
+	/*for (int i = 0; i < n; i++)
 	{
-		num[i] = i;
+		cout << num[i] << ' ';
+	}*/
+	//cout << endl;
+	//cout << LONG_LONG_MAX << endl;
+	p = num[0] - 1;
+	if (p != 0)
+	{
+		ans.push_back(p);
+		//cout << p << ' ';
 	}
-	for (int i = 1; i < a; i++)
+	for (int i = 0; i < n - 1; i++)
 	{
-		sol[i] = 1;
-		b--;
-	}
-	for (int i = 1; i < a; i++)
-	{
-		if (b > 0)
+		p = num[i] + 1;
+		if (p < num[i + 1])
 		{
-			sol[i] += min(a - i, b);
-			b -= min(a - i, b);
+			t = abs(p - num[i + 1]) + 1;
+			ans.push_back(t / 2);
+			//cout << t / 2 << ' ';
 		}
 	}
-	for (int i = a - 1; i >= 1; i--)
+	p = num[n - 1] + 1;
+	if (p != k + 1)
 	{
-		//cout << sol[i] << ' ';
-		reverse(&num[i], &num[i + sol[i]]);
+		ans.push_back(k + 1 - p);
+		//cout << k + 1 - p;
 	}
+	sort(ans.begin(), ans.end());
+	reverse(ans.begin(), ans.end());
+	a = (((long double)(ans[0] + ans[1])) / k);
+	cout << a;
 	//cout << endl;
-	cout << "Case #" << cnt << ": ";
-	for (int i = 1; i <= a; i++)
-	{
-		cout << num[i];
-		if (i != a)
-			cout << ' ';
-	}
-	cout << endl;
+	//cout << ans[0] << ' ' << ans[1];
+	ans.clear();
 }
-int main()
+int32_t main()
 {
 	ios_base::sync_with_stdio(false);
 	cin.tie(NULL);
-	int cnt;
+	int cnt = 1;
+#ifdef MANY_SUBTASK
 	cin >> cnt;
+#endif
 	for (int i = 1; i <= cnt; i++)
 	{
-		solve(i);
+		cout << "Case #" << i << ": ";
+		solve_subtask();
+		if (i != cnt)
+			cout << endl;
 	}
 	return 0;
 }

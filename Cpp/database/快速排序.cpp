@@ -1,44 +1,36 @@
-#include<bits/stdc++.h>
+#include <iostream>
 using namespace std;
-void quicksort(vector<int> &a,int s,int e)
+void quicksort(int a[], int s, int e)
 {
-	if(s>e) return ;
-	int i=s,j=e,t;
-	while(i!=j)
+	if (s > e)
+		return;
+	int i = s, j = e, t;
+	while (i != j)
 	{
-		while(a[j]>=a[s]&&i<j) j--;
-		while(a[i]<=a[s]&&i<j) i++;
-		swap(a[i],a[j]);
+		while (a[j] >= a[s] && i < j)
+			j--;
+		while (a[i] <= a[s] && i < j)
+			i++;
+		swap(a[i], a[j]);
 	}
-	swap(a[i],a[s]);
-	quicksort(a,s,i-1);
-	quicksort(a,i+1,e);
-}
-int binarySearch(vector<int> &number,int find,int s,int e)
-{
-	int low = s,upper = e;
-	while(low <= upper)
-	{
-		int mid = (low+upper) / 2;
-		if(number[mid] < find) low = mid+1;
-		else if(number[mid] > find) upper = mid-1;
-		else return mid;
-	}
-	return -1;
+	swap(a[i], a[s]);
+	quicksort(a, s, i - 1);
+	quicksort(a, i + 1, e);
 }
 int main()
 {
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
 	int a;
-	vector<int> b(1000);
-	cin>>a;
-	for(int c=0; c<a; c++)
+	int b[200005];
+	cin >> a;
+	for (int c = 0; c < a; c++)
 	{
-		cin>>b[c];
+		cin >> b[c];
 	}
-	quicksort(b,0,a-1);
-	for(int c=0; c<a; c++)
+	quicksort(b, 0, a - 1);
+	for (int c = 0; c < a; c++)
 	{
-		cout<<b[c]<<' ';
+		cout << b[c] << ' ';
 	}
-	cout<<binarySearch(b,66,0,a-1)<<endl;
 }

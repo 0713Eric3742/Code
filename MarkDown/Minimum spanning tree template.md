@@ -1,10 +1,8 @@
----
-title: Minimum spanning tree template
-tags: 線上讀書會筆記
----
 
 AC Code for [ZJ a129](https://zerojudge.tw/ShowProblem?problemid=a129)
-```cpp=
+-
+---
+```cpp
 /*
 I'm gonna to code now~
 Messenge me if any question.

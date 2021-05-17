@@ -10,7 +10,8 @@ import urllib.request
 def test():
     a_b={0:'a athing', 1:'a bthing'}
     test_no = int(input('please input photo number of test data (0~35999): '))
-    if 0<=test_no and test_no<=35999:
+    if 0 <= test_no and test
+    _no<=35999:
         plt.imshow(test_x[test_no].reshape(28,28), cmap="gray")
         plt.show()
         print(f'it is {a_b[np.argmax(test_y[test_no])]}')

@@ -1,14 +1,18 @@
-b=[]
-s=0
+b = []
+s = 0
+
+
 def dfs(a):
-    if (a>s):
+    if (a > s):
         for i in b:
-            print(i,end=' ')
+            print(i, end=' ')
         print()
         return
-    for i in range(1,4):
-        b.insert(a,i)
+    for i in range(1, s):
+        b.insert(a, i)
         dfs(a+1)
         b.pop(a-1)
-s=int(input())
+
+
+s = int(input())
 dfs(1)

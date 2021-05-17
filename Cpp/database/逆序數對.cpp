@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 vector<long long int> li, ri;
-long long int b[100005], ans, t;
+long long int b[500005], ans, t;
 void divide(int l, int r)
 {
 	if (l >= r)
@@ -33,9 +33,9 @@ void divide(int l, int r)
 }
 int main(int argc, char const *argv[])
 {
-	//cin.tie(0);
-	//ios_base::sync_with_stdio(false);
-	int a, num = 1;
+	cin.tie(0);
+	ios_base::sync_with_stdio(false);
+	int a;
 	while (cin >> a && a != 0)
 	{
 		ans = 0;
@@ -44,8 +44,7 @@ int main(int argc, char const *argv[])
 			cin >> b[i];
 		}
 		divide(0, a - 1);
-		cout << "Case #" << num << ": " << ans << '\n';
-		num++;
+		cout << ans << '\n';
 	}
 	return 0;
 }

@@ -1,76 +1,58 @@
-#include <iostream>
+//codeforces template
+#define MANY_SUBTASK
+#pragma GCC optimize(3, "Ofast", "inline")
+#include <bits/stdc++.h>
+#define endl '\n'
+#define int long long
 using namespace std;
-struct node
+//start here
+const int mod = 998244353;
+int pre[100005];
+int inv[100005];
+int prei[100005];
+void build(int n)
 {
-	double data;
-	node *next;
-};
-node *bucket[15], *last[15];
-node *assign(double num)
-{
-	node *t = new node;
-	t->data = num;
-	t->next = nullptr;
-	return t;
-}
-void push(int index, double num)
-{
-	if (bucket[index] == NULL)
+	pre[1] = pre[0] = 1, inv[1] = inv[0] = 1, prei[1] = prei[0] = 1;
+	for (int i = 2; i <= n; i++)
 	{
-		bucket[index] = assign(num);
-		last[index] = bucket[index];
-	}
-	else
-	{
-		last[index]->next = assign(num);
-		last[index] = last[index]->next;
+		pre[i] = pre[i - 1] * i % mod;
+		inv[i] = mod - (mod / i * inv[mod % i]) % mod;
+		prei[i] = prei[i - 1] * inv[i] % mod;
 	}
 }
-int main()
+int C(int n, int k)
 {
-	node *now, *last;
-	double a, t;
+	return pre[n] * prei[k] % mod * prei[n - k] % mod;
+}
+void solve_subtask()
+{
+	int a, ans = 1, l[2] = {}, cnt[2] = {};
 	cin >> a;
-	for (int i = 0; i < a; i++)
+	build(a + 5);
+	string s;
+	cin >> s;
+	for (int i = 0; i < s.size(); i++)
 	{
-		cin >> t;
-		push(10, t);
-	}
-	for (double i = 0.01;; i *= 10)
-	{
-		now = bucket[10];
-		while (now != NULL)
+		if (s[i] == '1')
 		{
-			t = ((int)((now->data) / i)) % 10;
-			push(t, now->data);
-			last = now;
-			now = now->next;
-			free(last);
+			cnt[i % 2]++;
 		}
-		bucket[10] = nullptr;
-		for (int i = 0; i < 10; i++)
-		{
-			now = bucket[i];
-			while (now != NULL)
-			{
-				push(10, now->data);
-				last = now;
-				now = now->next;
-				free(last);
-			}
-			bucket[i] = nullptr;
-		}
-		if (i == 1e9)
-			break;
+		l[i % 2]++;
 	}
-	now = bucket[10];
-	while (now != NULL)
+	ans += (C(l[0], cnt[0]) + C(l[1], cnt[1]) + mod) % mod;
+	cout << ans << endl;
+}
+int32_t main()
+{
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	int cnt = 1;
+#ifdef MANY_SUBTASK
+	cin >> cnt;
+#endif
+	while (cnt--)
 	{
-		cout << now->data << ' ';
-		last = now;
-		now = now->next;
-		free(last);
+		solve_subtask();
 	}
-	bucket[10] = nullptr;
 	return 0;
 }

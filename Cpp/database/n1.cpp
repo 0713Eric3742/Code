@@ -1,77 +1,91 @@
+//codeforces template
+#define MANY_SUBTASK
+#pragma GCC optimize(3, "Ofast", "inline")
 #include <bits/stdc++.h>
+#define endl '\n'
+#define int long long
 using namespace std;
-//#define endl '\n'
-//#define int long long
-struct node
+//start here
+int q[1000005][2] = {};
+void solve_subtask()
 {
-    int data;
-    node *l;
-    node *r;
-};
-node *start = nullptr;
-node *assign(int val)
-{
-    node *t = new node;
-    t->data = val;
-    t->l = NULL;
-    t->r = NULL;
-    return t;
-}
-void push(int val)
-{
-    node *t = start, *l;
-    while (t != NULL)
+    int a, b, u, v;
+    cin >> a >> b;
+    vector<int> edge[a + 5];
+    int ans[a + 5] = {};
+    bool vis[a + 5] = {};
+    for (int i = 0; i < b; i++)
     {
-        l = t;
-        if (val > t->data)
-        {
-            t = t->r;
-        }
+        cin >> u >> v;
+        if (u == v)
+            ans[u] = 99999999;
         else
         {
-            t = t->l;
+            edge[u].emplace_back(v);
         }
     }
-    if (val > l->data)
+    int top = 0, back = 0;
+    q[top][0] = 1;
+    q[top++][1] = 0;
+    ans[1] = 1;
+    vis[1] = true;
+    while (top != back)
     {
-        l->r = assign(val);
-    }
-    else
-    {
-        l->l = assign(val);
-    }
-}
-void dfs(node *now)
-{
-    cout << now->data << ' ';
-    if (now->l != NULL)
-        dfs(now->l);
-    if (now->r != NULL)
-        dfs(now->r);
-    free(now);
-}
-int main()
-{
-    // ios_base::sync_with_stdio(false);
-    // cin.tie(NULL);
-    int a, cnt;
-    while (cin >> cnt)
-    {
-        start = NULL;
-        for (int i = 0; i < cnt; i++)
+        for (int i = 0; i < edge[q[back][0]].size(); i++)
         {
-            cin >> a;
-            if (start == NULL)
+            if (!vis[edge[q[back][0]][i]])
             {
-                start = assign(a);
+                q[top][0] = edge[q[back][0]][i];
+                q[top++][1] = back;
+                ans[edge[q[back][0]][i]] += ans[q[back][0]];
             }
             else
             {
-                push(a);
+                ans[q[back][0]] = 99999999;
+                int t = q[back][1];
+                while (t != 0)
+                {
+                    ans[q[t][0]] = 99999999;
+                    t = q[t][1];
+                    //cout << t << endl;
+                }
+                ans[q[t][0]] = 99999999;
             }
         }
-        dfs(start);
-        cout << endl;
+        back++;
+    }
+    for (int i = 1; i <= a; i++)
+    {
+        if (ans[i] == 0)
+        {
+            cout << 0 << ' ';
+        }
+        else if (ans[i] == 1)
+        {
+            cout << 1 << ' ';
+        }
+        else if (1 < ans[i] && ans[i] < 5000000)
+        {
+            cout << 2 << ' ';
+        }
+        else
+        {
+            cout << -1 << ' ';
+        }
+    }
+    cout << endl;
+}
+int32_t main()
+{
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    int cnt = 1;
+#ifdef MANY_SUBTASK
+    cin >> cnt;
+#endif
+    while (cnt--)
+    {
+        solve_subtask();
     }
     return 0;
 }

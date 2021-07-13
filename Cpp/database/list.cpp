@@ -2,32 +2,38 @@
 using namespace std;
 struct node
 {
-    char data[100];
-    struct node *next;
+    int data; //儲存的資料
+    struct node *next; //指到下一個struct的指針
 };
 int main()
 {
-    node *start, *t, *l;
-    start = NULL;
+    struct node *head; //指到第一個struct的指針
+    struct node *temp, *last;
+    head = NULL;
     int a;
     cin >> a;
     for (int i = 0; i < a; i++)
     {
-        t = new node;
-        cin >> t->data;
-        t->next = NULL;
-        if (start == NULL)
-            start = t;
+        temp = new struct node;
+        cin >> temp->data;
+        temp->next = NULL;
+        if (head == NULL)
+            head = temp;
         else
-            l->next = t;
-        l = t;
+            last->next = temp;
+        last = temp;
     }
-    t = start;
-    while (t != NULL)
+    temp = head;
+    while (temp != NULL)
     {
-        cout << t->data << ' ';
-        l = t;
-        t = t->next;
-        free(l);
+        cout << temp->data << ' ';
+        temp = temp->next;
     }
 }
+/*
+	input:
+	5
+	1 2 3 4 5
+	output:
+	1 2 3 4 5
+*/
